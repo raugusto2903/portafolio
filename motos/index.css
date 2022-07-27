@@ -1,0 +1,28 @@
+ td { background-color: cornflowerblue;  }
+.parent {
+background-color: aquamarine;
+height:  100%;
+width: 100%;
+align-items: center;
+justify-content: center;
+display: flex;
+cursor : pointer;
+}
+.imgmoto{
+	background : url("images/moto.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-x:Right;
+}
+.spant{
+  display: flex;
+  justify-content: center;
+}
+td[valign="top"] {
+    display: block;
+}
+
+td[valign="top"][style="width: 15%"] {
+    white-space: nowrap;
+    display: table-cell;
+}
