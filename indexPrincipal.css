@@ -11,12 +11,13 @@
 }
 .proyectos{
     background-image: linear-gradient(rgb(36, 36, 109),blue);
-    display: block;
+    display: flex;
     position: relative;
-    width:100%;
+    width: 100%;
     height: 10em;
     flex-direction: column;
     font-family: 'Times New Roman', Times, serif;
+    align-items: center;
 }
 .proyectos a{
     color: aliceblue;
@@ -36,7 +37,10 @@
     transform: rotate(-45deg);
 }
 .nombre{
+    display: flex;
     font-family: 'Times New Roman', Times, serif;
+    flex-direction: column;
+    align-items: center;
 }
 .nombre h2{
     text-shadow: azure 2px 2px 5px;
