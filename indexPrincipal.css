@@ -10,7 +10,7 @@
     justify-items: center;
 }
 .proyectos{
-    background-image: linear-gradient(rgb(36, 36, 109),blue);
+    background-image: linear-gradient(rgb(36, 36, 109),#040440);
     display: flex;
     position: relative;
     width: 100%;
@@ -45,4 +45,9 @@
 .nombre h2{
     text-shadow: azure 2px 2px 5px;
     border-bottom: 1px solid black;
+}
+h3 {
+    text-shadow: darkblue 1PX 3PX 1PX;
+    font-weight: bold;
+    font-style: oblique;
 }
