@@ -87,7 +87,7 @@ function desasignarMoto(id){
 	var auxId=key+"span";
 	var spanAux =document.getElementById(auxId);
 	var numeroMoto =spanAux.textContent;
-	alert(numeroMoto);
+	//alert(numeroMoto);
 	const myArray = numeroMoto.split(" ");
 	var number = myArray[1];
 	var elemento = document.getElementById(key);
@@ -95,9 +95,9 @@ function desasignarMoto(id){
 	spanAux.innerHTML = "";
 	elemento.classList.remove("imgmoto");
 	elemento.setAttribute('style', 'background-color:cornflowerblue');
-	alert(number);
+	//alert(number);
 	motos[parseInt(number)].Activo = false;
 	cont++;
-	alert(cont);
+	//alert(cont);
 }
 
