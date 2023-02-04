@@ -1,5 +1,5 @@
 .principal{
-    background-color: rgb(36, 36, 109);
+    background-color: rgb(153 153 217);
     width: 100vw;
     height: 100vh;
     display: grid;
@@ -10,7 +10,7 @@
     justify-items: center;
 }
 .proyectos{
-    background-image: linear-gradient(rgb(36, 36, 109),#040440);
+    background-image: linear-gradient(rgb(153 153 217),#343444);
     display: flex;
     position: relative;
     width: 100%;
@@ -20,7 +20,11 @@
     align-items: center;
 }
 .proyectos a{
-    color: aliceblue;
+    color: rgb(3, 18, 31);
+}
+button.boton{
+    border: 0px;
+    background: transparent;
 }
 .photo{
     width: 7em;
@@ -47,7 +51,17 @@
     border-bottom: 1px solid black;
 }
 h3 {
-    text-shadow: darkblue 1PX 3PX 1PX;
+    text-shadow: #3f3f66 1PX 3PX 1PX;
     font-weight: bold;
     font-style: oblique;
+}
+.footerDiv{
+ background-color: black;
+ width: 100%;
+ height:100%;
+ display:flex;
+ flex-direction: column;
+justify-content: center;
+justify-items: center;
+ color: azure;
 }
