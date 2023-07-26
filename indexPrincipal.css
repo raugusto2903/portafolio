@@ -48,12 +48,15 @@ button.boton{
 }
 .nombre h2{
     text-shadow: azure 2px 2px 5px;
-    border-bottom: 1px solid black;
 }
 h3 {
     text-shadow: #3f3f66 1PX 3PX 1PX;
     font-weight: bold;
     font-style: oblique;
+}
+
+h6 {
+  align-items: center;
 }
 .footerDiv{
  background-color: black;
@@ -63,5 +66,20 @@ h3 {
  flex-direction: column;
 justify-content: center;
 justify-items: center;
+align-items: center;
  color: azure;
 }
+
+.cascade-text {
+    font-size: 48px;
+    animation: cascade 4s steps(40) infinite;
+  }
+  
+  @keyframes cascade {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(50px);
+    }
+  }
