@@ -13,5 +13,5 @@ for (let i = 0; i < letters.length; i++) {
      h2Element.textContent = palabra;
     }, tiempo * i);
   }
-cascadeText.innerHTML = newTextContent;
+//cascadeText.innerHTML = newTextContent;
 }
