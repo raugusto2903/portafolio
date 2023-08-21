@@ -39,3 +39,6 @@ function showImage(index) {
      showImage(currentIndex);
      setInterval(nextImage, 5000); // Auto-slide every 5 seconds
  });
+ function redirectTo(url) {
+  window.location.href = url;
+}
