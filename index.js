@@ -15,3 +15,27 @@ for (let i = 0; i < letters.length; i++) {
   }
 //cascadeText.innerHTML = newTextContent;
 }
+
+ const carousel = document.querySelector('.carousel');
+ const images = document.querySelectorAll('.carousel img');
+
+let currentIndex = 0;
+
+function showImage(index) {
+     carousel.style.transform = `translateX(-${index * 10}%)`; }
+
+ function nextImage() {
+     currentIndex = (currentIndex + 1) % images.length;
+     showImage(currentIndex);
+ }
+
+ function prevImage() {
+     currentIndex = (currentIndex - 1 + images.length) % images.length;
+     showImage(currentIndex);
+ }
+
+ // Event listeners for next and previous buttons
+ document.addEventListener('DOMContentLoaded', () => {
+     showImage(currentIndex);
+     setInterval(nextImage, 5000); // Auto-slide every 5 seconds
+ });
