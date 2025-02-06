@@ -1,0 +1,398 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    text-align: center;
+    background-color: #f5f5f5;
+}
+
+.hero {
+    margin: 50px auto;
+    padding: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos generales del navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    background: #007BFF;
+    color: white;
+    display: flex;
+    justify-content: flex-end; /* Alinear a la derecha */
+    align-items: center;
+    padding: 15px 20px;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos de la lista de navegación */
+.nav-list {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-list li {
+    display: inline;
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 15px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.nav-list a:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Menú hamburguesa para móviles */
+.menu-toggle {
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    display: none;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+/* Responsividad del menú */
+@media (max-width: 2000px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-list {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        background: #007BFF;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        padding: 10px 0;
+    }
+
+    .nav-list.active {
+        display: flex;
+    }
+
+    .nav-list li {
+        padding: 10px;
+    }
+
+    .nav-list a {
+        display: block;
+        padding: 10px 20px;
+        border-radius: 5px;
+    }
+}
+
+/* Header con animación mejorada */
+header {
+    text-align: center;
+    padding-top: 80px;
+    padding-bottom: 20px;
+    color: white;
+    position: relative;
+    background: linear-gradient(45deg, #007BFF, #0056b3, #00b3ff);
+    background-size: 300% 300%;
+    animation: gradientMove 5s infinite linear;
+    margin-top: 50px;
+}
+
+header h1 {
+    font-size: 36px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #00f, 0 0 20px #00f;
+    animation: neonGlow 2s infinite alternate;
+}
+
+/* Animaciones */
+@keyframes neonGlow {
+    0% {
+        text-shadow: 0 0 10px #ff0, 0 0 20px #ff0, 0 0 30px #f00, 0 0 40px #f00;
+    }
+    50% {
+        text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #00f, 0 0 40px #00f;
+    }
+    100% {
+        text-shadow: 0 0 10px #f0f, 0 0 20px #f0f, 0 0 30px #ff0, 0 0 40px #ff0;
+    }
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+.best-practices {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f8f9fa;
+}
+
+.best-practices h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.practices-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.practice {
+    width: 300px;
+    text-align: center;
+}
+
+.practice img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.practice p {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.practice img {
+    width: 280px; /* Tamaño fijo para todas las imágenes */
+    height: 180px; /* Tamaño fijo para mantener uniformidad */
+    object-fit: cover; /* Recorta la imagen para que encaje sin deformarse */
+    border-radius: 10px; /* Esquinas redondeadas para un mejor diseño */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Ocultar el formulario al inicio */
+.hidden {
+    display: none;
+}
+
+/* Botón de cierre */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: rgb(168, 145, 14);
+}
+
+/* Estilos generales del formulario */
+#formContainer {
+    width: 90%;
+    max-width: 350px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+/* Campos del formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Pie de página con redes sociales */
+.social-media {
+    margin-top: 15px;
+}
+
+.social-media p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.social-media a img {
+    width: 30px;
+    margin: 0 5px;
+    transition: transform 0.3s;
+}
+
+.social-media a img:hover {
+    transform: scale(1.2);
+}
+
+/* Hacer responsivo el formulario en pantallas pequeñas */
+@media (max-width: 480px) {
+    #formContainer {
+        width: 80%;
+    }
+}
+
+.features {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #ffffff;
+}
+
+.features h2 {
+    font-size: 28px;
+    color: #007BFF;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.features-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.feature {
+    width: 300px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.feature img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #007BFF;
+    margin-bottom: 15px;
+}
+
+.feature h3 {
+    font-size: 20px;
+    color: #0056b3;
+    margin-bottom: 10px;
+}
+
+.feature p {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .features-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Estilos del botón "Ir Arriba" */
+.scroll-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s, transform 0.3s;
+    opacity: 0;
+    transform: scale(0);
+    z-index: 1000;
+}
+
+/* Mostrar botón cuando se haga scroll */
+.scroll-top.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Efecto hover */
+.scroll-top:hover {
+    background-color: #0056b3;
+}
+
+/* Ocultar en pantallas pequeñas si es necesario */
+@media (max-width: 480px) {
+    .scroll-top {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+}
