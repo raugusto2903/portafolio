@@ -28,19 +28,19 @@ Bienvenido a **WebPro Tools**, una Landing Page optimizada para la captación de
 📌 1. Menú de Navegación
 En la parte superior encontrarás un menú de navegación.
 En dispositivos móviles, el menú se convierte en un botón de hamburguesa (☰).
+📌 2. Sección de Inicio
+Contiene los titulos mas relevantes de la pagina
+✅ Que el nombre no contenga números ni caracteres especiales.
 📌 2. Sección de Características
 Contiene información clave sobre cómo captar clientes de manera efectiva.
 Incluye imágenes y descripciones con consejos importantes.
-📌 3. Formulario de Suscripción
-Se activa al hacer clic en el botón "Suscríbete Ahora".
-El formulario valida:
+📌 2. Sección de Contacto
+como su nombre lo indica nos muestra un boton ael cual nos ingresa a un formulario de inscripcion
+✅ Que el nombre no contenga números ni caracteres especiales.
 ✅ Que el nombre no contenga números ni caracteres especiales.
 ✅ Que el correo tenga un formato válido.
 📌 4. Botón "Ir Arriba" (Scroll to Top)
 Aparece automáticamente cuando el usuario hace scroll hacia abajo.
 Al hacer clic en él, la página se desplaza suavemente hasta la parte superior.
 
-### 🔧 **1. Clonar el repositorio**  
-```sh
-git clone https://github.com/tu-usuario/webpro-tools.git
-cd webpro-tools
+
