@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Trayectoria de Proyectil | Portafolio de Ramiro Lamilla</title>
+    <meta name="description" content="Simulador interactivo de movimiento parabólico: ángulo, velocidad inicial y trayectoria animada de un proyectil.">
+    <link rel="stylesheet" href="proyectil.css">
+</head>
+
+<body>
+    <header class="cabecera">
+        <a href="../index.html" class="cabecera__volver">← Volver al portafolio</a>
+        <h1 class="cabecera__titulo">Simulador de Trayectoria de <span class="acento">Proyectil</span></h1>
+    </header>
+
+    <main class="contenedor">
+        <!-- ===== Explicación física ===== -->
+        <section class="panel-info" aria-label="Concepto físico">
+            <h2 class="panel-info__titulo">¿Qué es el movimiento parabólico?</h2>
+            <p>
+                Cuando un proyectil se lanza con un <strong>ángulo θ</strong> y una
+                <strong>velocidad inicial v₀</strong>, su movimiento se descompone en dos:
+                horizontal a velocidad constante (<em>v₀·cos θ</em>) y vertical acelerado
+                por la <strong>gravedad g = 9.8 m/s²</strong> (<em>v₀·sen θ − g·t</em>).
+                La combinación de ambos produce una <strong>parábola</strong>.
+                Este simulador aplica esas fórmulas para calcular la posición del
+                proyectil en cada instante, sin considerar la resistencia del aire.
+            </p>
+        </section>
+
+        <!-- ===== Controles ===== -->
+        <section class="controles" aria-label="Parámetros del lanzamiento">
+            <div class="controles__grupo">
+                <label for="inputAngulo">Ángulo (grados)</label>
+                <input type="number" id="inputAngulo" class="campo" value="45" min="1" max="89" step="1">
+            </div>
+
+            <div class="controles__grupo">
+                <label for="inputVelocidad">Velocidad inicial (m/s)</label>
+                <input type="number" id="inputVelocidad" class="campo" value="30" min="1" max="200" step="1">
+            </div>
+
+            <button type="button" id="btnLanzar" class="boton-primario">🚀 Lanzar</button>
+            <button type="button" id="btnReiniciar" class="boton-secundario">Reiniciar</button>
+        </section>
+
+        <!-- ===== Escenario de la simulación ===== -->
+        <section class="escenario" aria-label="Visualización de la trayectoria">
+            <canvas id="lienzo" width="900" height="450"></canvas>
+        </section>
+
+        <!-- ===== Resultados ===== -->
+        <section class="resultados" aria-label="Resultados de la simulación">
+            <h2 class="resultados__titulo">Resultados</h2>
+            <div class="resultados__grid">
+                <div class="resultado">
+                    <span class="resultado__etiqueta">📏 Distancia horizontal</span>
+                    <span class="resultado__valor" id="resDistancia">—</span>
+                </div>
+                <div class="resultado">
+                    <span class="resultado__etiqueta">⛰️ Altura máxima</span>
+                    <span class="resultado__valor" id="resAltura">—</span>
+                </div>
+                <div class="resultado">
+                    <span class="resultado__etiqueta">⏱️ Tiempo de vuelo</span>
+                    <span class="resultado__valor" id="resTiempo">—</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="proyectil.js"></script>
+</body>
+</html>

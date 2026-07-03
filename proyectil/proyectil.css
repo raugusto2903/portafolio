@@ -1,0 +1,263 @@
+/* ============================================
+   Simulador de Proyectil — Tema oscuro del portafolio
+   ============================================ */
+:root {
+    --color-fondo: #0f172a;
+    --color-fondo-alt: #1e293b;
+    --color-borde: #334155;
+    --color-texto: #e2e8f0;
+    --color-texto-suave: #94a3b8;
+    --color-acento: #38bdf8;
+    --color-acento-hover: #7dd3fc;
+    --color-exito: #4ade80;
+    --fuente: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --radio: 14px;
+    --transicion: 0.3s ease;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-family: var(--fuente);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.acento {
+    color: var(--color-acento);
+}
+
+/* ---------- Cabecera ---------- */
+.cabecera {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--color-borde);
+}
+
+.cabecera__volver {
+    color: var(--color-acento);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.cabecera__volver:hover {
+    color: var(--color-acento-hover);
+    text-decoration: underline;
+}
+
+.cabecera__titulo {
+    font-size: 1.4rem;
+    margin-top: 0.3rem;
+}
+
+/* ---------- Layout ---------- */
+.contenedor {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+/* ---------- Panel de explicación ---------- */
+.panel-info {
+    background-color: var(--color-fondo-alt);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: 1.3rem 1.5rem;
+    color: var(--color-texto-suave);
+}
+
+.panel-info__titulo {
+    font-size: 1.1rem;
+    color: var(--color-texto);
+    margin-bottom: 0.5rem;
+}
+
+.panel-info strong {
+    color: var(--color-acento);
+}
+
+.panel-info em {
+    color: var(--color-texto);
+    font-style: italic;
+}
+
+/* ---------- Controles ---------- */
+.controles {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 1rem;
+    background-color: var(--color-fondo-alt);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: 1.2rem 1.4rem;
+}
+
+.controles__grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    flex: 1 1 150px;
+}
+
+.controles__grupo label {
+    font-size: 0.85rem;
+    color: var(--color-texto-suave);
+    font-weight: 600;
+}
+
+.campo {
+    background-color: var(--color-fondo);
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    color: var(--color-texto);
+    padding: 0.6rem 0.8rem;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.campo:focus {
+    outline: 2px solid var(--color-acento);
+    border-color: transparent;
+}
+
+.boton-primario,
+.boton-secundario {
+    border: none;
+    border-radius: 999px;
+    padding: 0.65rem 1.6rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color var(--transicion), transform var(--transicion),
+                opacity var(--transicion);
+}
+
+.boton-primario {
+    background-color: var(--color-acento);
+    color: #082f49;
+}
+
+.boton-primario:hover:not(:disabled) {
+    background-color: var(--color-acento-hover);
+    transform: translateY(-2px);
+}
+
+.boton-secundario {
+    background: none;
+    border: 2px solid var(--color-acento);
+    color: var(--color-acento);
+}
+
+.boton-secundario:hover:not(:disabled) {
+    background-color: rgba(56, 189, 248, 0.12);
+    transform: translateY(-2px);
+}
+
+.boton-primario:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* ---------- Escenario (canvas) ---------- */
+.escenario {
+    background-color: var(--color-fondo-alt);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: 0.8rem;
+}
+
+#lienzo {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    background: linear-gradient(to bottom, #0b1120 0%, #101c33 100%);
+}
+
+/* ---------- Resultados ---------- */
+.resultados {
+    background-color: var(--color-fondo-alt);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: 1.2rem 1.4rem;
+}
+
+.resultados__titulo {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+}
+
+.resultados__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+}
+
+.resultado {
+    background-color: var(--color-fondo);
+    border: 1px solid var(--color-borde);
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    transition: border-color var(--transicion);
+}
+
+.resultado:hover {
+    border-color: var(--color-acento);
+}
+
+.resultado__etiqueta {
+    font-size: 0.85rem;
+    color: var(--color-texto-suave);
+}
+
+.resultado__valor {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--color-acento);
+}
+
+/* Animación cuando se actualizan los resultados */
+.resultado__valor--nuevo {
+    animation: destello 0.6s ease;
+}
+
+@keyframes destello {
+    0%   { transform: scale(0.85); color: var(--color-exito); }
+    100% { transform: scale(1); }
+}
+
+/* ---------- Tablet / Escritorio ---------- */
+@media (min-width: 640px) {
+    .resultados__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .cabecera__titulo {
+        font-size: 1.6rem;
+    }
+}
+
+/* ---------- Accesibilidad: menos movimiento ---------- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
