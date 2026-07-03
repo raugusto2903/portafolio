@@ -1,0 +1,310 @@
+/* ============================================
+   Laberinto Recursivo — Tema oscuro del portafolio
+   ============================================ */
+:root {
+    --color-fondo: #0f172a;
+    --color-fondo-alt: #1e293b;
+    --color-borde: #334155;
+    --color-texto: #e2e8f0;
+    --color-texto-suave: #94a3b8;
+    --color-acento: #38bdf8;
+    --color-acento-hover: #7dd3fc;
+
+    /* Colores de las casillas del laberinto */
+    --celda-pared: #1e293b;
+    --celda-camino: #0b1120;
+    --celda-inicio: #a78bfa;      /* violeta */
+    --celda-visitada: #0e7490;    /* cian oscuro */
+    --celda-retroceso: #b45309;   /* ámbar oscuro */
+    --celda-salida: #16a34a;      /* verde */
+
+    --fuente: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --radio: 14px;
+    --transicion: 0.3s ease;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-family: var(--fuente);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.acento {
+    color: var(--color-acento);
+}
+
+/* ---------- Cabecera ---------- */
+.cabecera {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--color-borde);
+}
+
+.cabecera__volver {
+    color: var(--color-acento);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.cabecera__volver:hover {
+    color: var(--color-acento-hover);
+    text-decoration: underline;
+}
+
+.cabecera__titulo {
+    font-size: 1.5rem;
+    margin-top: 0.3rem;
+}
+
+/* ---------- Layout ---------- */
+.contenedor {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+/* ---------- Panel de explicación ---------- */
+.panel-info {
+    background-color: var(--color-fondo-alt);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: 1.3rem 1.5rem;
+    color: var(--color-texto-suave);
+}
+
+.panel-info__titulo {
+    font-size: 1.1rem;
+    color: var(--color-texto);
+    margin-bottom: 0.5rem;
+}
+
+.panel-info strong {
+    color: var(--color-acento);
+}
+
+.panel-info em {
+    color: var(--color-texto);
+}
+
+/* ---------- Controles ---------- */
+.controles {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--color-fondo-alt);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: 1rem 1.3rem;
+}
+
+.boton-primario,
+.boton-secundario {
+    border: none;
+    border-radius: 999px;
+    padding: 0.65rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color var(--transicion), transform var(--transicion),
+                opacity var(--transicion);
+}
+
+.boton-primario {
+    background-color: var(--color-acento);
+    color: #082f49;
+}
+
+.boton-primario:hover:not(:disabled) {
+    background-color: var(--color-acento-hover);
+    transform: translateY(-2px);
+}
+
+.boton-secundario {
+    background: none;
+    border: 2px solid var(--color-acento);
+    color: var(--color-acento);
+}
+
+.boton-secundario:hover:not(:disabled) {
+    background-color: rgba(56, 189, 248, 0.12);
+    transform: translateY(-2px);
+}
+
+.boton-primario:disabled,
+.boton-secundario:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.controles__velocidad {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-texto-suave);
+    font-size: 0.9rem;
+}
+
+.campo {
+    background-color: var(--color-fondo);
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    color: var(--color-texto);
+    padding: 0.4rem 0.6rem;
+    font-size: 0.9rem;
+}
+
+/* ---------- Indicador de estado ---------- */
+.estado {
+    margin-left: auto;
+    font-size: 0.95rem;
+    color: var(--color-texto-suave);
+}
+
+.estado__valor {
+    font-weight: 700;
+    padding: 0.25rem 0.8rem;
+    border-radius: 999px;
+    transition: background-color var(--transicion), color var(--transicion);
+}
+
+.estado--listo      { background: rgba(148, 163, 184, 0.15); color: var(--color-texto); }
+.estado--buscando   { background: rgba(56, 189, 248, 0.18);  color: var(--color-acento); }
+.estado--retroceso  { background: rgba(251, 146, 60, 0.18);  color: #fdba74; }
+.estado--exito      { background: rgba(74, 222, 128, 0.18);  color: #4ade80; }
+.estado--fracaso    { background: rgba(248, 113, 113, 0.18); color: #f87171; }
+
+/* ---------- Tablero del laberinto ---------- */
+.laberinto {
+    background-color: var(--color-fondo-alt);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.laberinto__tablero {
+    display: grid;
+    gap: 2px;
+    width: 100%;
+    max-width: 640px;
+}
+
+.celda {
+    aspect-ratio: 1 / 1;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(0.6rem, 2.6vw, 1.15rem);
+    transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.celda--pared   { background-color: var(--celda-pared); box-shadow: inset 0 0 0 1px var(--color-borde); }
+.celda--camino  { background-color: var(--celda-camino); }
+.celda--inicio  { background-color: var(--celda-inicio); }
+.celda--salida  { background-color: var(--celda-salida); }
+
+/* Casilla visitada durante la búsqueda */
+.celda--visitada {
+    background-color: var(--celda-visitada);
+    animation: aparecer 0.3s ease;
+}
+
+/* Casilla descartada por backtracking */
+.celda--retroceso {
+    background-color: var(--celda-retroceso);
+}
+
+/* Posición actual del personaje */
+.celda--personaje {
+    transform: scale(1.12);
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
+    z-index: 1;
+}
+
+@keyframes aparecer {
+    from { transform: scale(0.6); opacity: 0.4; }
+    to   { transform: scale(1);   opacity: 1; }
+}
+
+/* Celebración al encontrar la salida */
+.celda--meta {
+    animation: celebrar 0.8s ease infinite alternate;
+}
+
+@keyframes celebrar {
+    from { box-shadow: 0 0 6px rgba(74, 222, 128, 0.5); }
+    to   { box-shadow: 0 0 18px rgba(74, 222, 128, 1); transform: scale(1.15); }
+}
+
+/* ---------- Leyenda ---------- */
+.leyenda {
+    background-color: var(--color-fondo-alt);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: 1.2rem 1.4rem;
+}
+
+.leyenda__titulo {
+    font-size: 1rem;
+    margin-bottom: 0.7rem;
+}
+
+.leyenda__lista {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 0.6rem;
+    color: var(--color-texto-suave);
+    font-size: 0.9rem;
+}
+
+.leyenda__lista li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.muestra {
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.muestra--pared      { background-color: var(--celda-pared); box-shadow: inset 0 0 0 1px var(--color-borde); }
+.muestra--camino     { background-color: var(--celda-camino); box-shadow: inset 0 0 0 1px var(--color-borde); }
+.muestra--inicio     { background-color: var(--celda-inicio); }
+.muestra--visitada   { background-color: var(--celda-visitada); }
+.muestra--retroceso  { background-color: var(--celda-retroceso); }
+.muestra--personaje  { background-color: var(--celda-camino); }
+.muestra--salida     { background-color: var(--celda-salida); }
+
+/* ---------- Accesibilidad: menos movimiento ---------- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}

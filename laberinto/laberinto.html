@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laberinto Recursivo | Portafolio de Ramiro Lamilla</title>
+    <meta name="description" content="Visualización de un algoritmo recursivo de backtracking (DFS) que resuelve un laberinto paso a paso.">
+    <link rel="stylesheet" href="laberinto.css">
+</head>
+
+<body>
+    <header class="cabecera">
+        <a href="../index.html" class="cabecera__volver">← Volver al portafolio</a>
+        <h1 class="cabecera__titulo">Laberinto <span class="acento">Recursivo</span></h1>
+    </header>
+
+    <main class="contenedor">
+        <!-- ===== Explicación del algoritmo ===== -->
+        <section class="panel-info" aria-label="Explicación del algoritmo">
+            <h2 class="panel-info__titulo">¿Cómo funciona?</h2>
+            <p>
+                El laberinto es una <strong>matriz bidimensional</strong> donde
+                <strong>1</strong> es una pared, <strong>0</strong> es camino libre y
+                <strong>2</strong> es la posición inicial del personaje.
+                Un algoritmo recursivo de <strong>búsqueda en profundidad (DFS)
+                con backtracking</strong> explora el laberinto: desde cada casilla
+                intenta moverse en orden de prioridad
+                <strong>derecha → arriba → izquierda → abajo</strong>.
+                Si un camino no lleva a la salida, la función <em>retrocede</em>
+                (backtracking) y prueba la siguiente alternativa, llamándose a sí
+                misma hasta encontrar la salida o agotar todas las rutas.
+            </p>
+        </section>
+
+        <!-- ===== Controles y estado ===== -->
+        <section class="controles" aria-label="Controles de la simulación">
+            <button type="button" id="btnIniciar" class="boton-primario">Iniciar búsqueda</button>
+            <button type="button" id="btnReiniciar" class="boton-secundario">Reiniciar</button>
+
+            <label class="controles__velocidad">
+                Velocidad:
+                <select id="selectVelocidad" class="campo">
+                    <option value="260">Lenta</option>
+                    <option value="140" selected>Normal</option>
+                    <option value="60">Rápida</option>
+                </select>
+            </label>
+
+            <p class="estado" role="status">
+                Estado: <span id="indicadorEstado" class="estado__valor estado--listo">Listo para iniciar</span>
+            </p>
+        </section>
+
+        <!-- ===== Laberinto ===== -->
+        <section class="laberinto" aria-label="Representación gráfica del laberinto">
+            <div id="tablero" class="laberinto__tablero"></div>
+        </section>
+
+        <!-- ===== Leyenda de colores ===== -->
+        <section class="leyenda" aria-label="Leyenda de colores">
+            <h2 class="leyenda__titulo">Leyenda</h2>
+            <ul class="leyenda__lista">
+                <li><span class="muestra muestra--pared"></span> Pared (1)</li>
+                <li><span class="muestra muestra--camino"></span> Camino libre (0)</li>
+                <li><span class="muestra muestra--inicio"></span> Posición inicial (2)</li>
+                <li><span class="muestra muestra--visitada"></span> Casilla visitada</li>
+                <li><span class="muestra muestra--retroceso"></span> Retroceso (sin salida)</li>
+                <li><span class="muestra muestra--personaje">🤖</span> Personaje</li>
+                <li><span class="muestra muestra--salida">🚩</span> Salida</li>
+            </ul>
+        </section>
+    </main>
+
+    <script src="laberinto.js"></script>
+</body>
+</html>
