@@ -1,103 +1,107 @@
-var script = document.createElement('script');
-script.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
-document.getElementsByTagName('head')[0].appendChild(script);
+/* ============================================
+   Horario de Motociclistas
+   Genera 24 franjas de media hora (desde las 8:00)
+   Clic: asigna un motociclista · Doble clic: lo libera
+   ============================================ */
 
+const TOTAL_MOTOCICLISTAS = 8;
+const TOTAL_FRANJAS = 24;
 
-	
-
-class Motociclista{
-	constructor(Activo,numeracion){
-		this.Activo = Activo;
-		this.numeracion = numeracion;
-	}
-}
-var motos = new Array();
-var times = new Array(); // time array
-
-
-function CrearHorario(){
-	var hh = 8,hi; 
-	for (var i=0;i<24; i++) {
-		    hi=hh;
-		    hi = Math.floor(hh);
-			var mm = 0; // start time
-  			if (i % 2 == 1){mm = "30"}
-		    else {mm = "00"}
-		    var time ="";
-		    time =  hi + ":" + mm + " ";
-	        if(hh < 12)  {time += "AM"}
-		    else {time += "PM"}
-  			times.push(time);
-  			hh =  hh + 0.5;
-}
-		var prueba ="";
-	    var tables = document.getElementById('box');
-	    prueba =""
-		for(var j=0 ; j < times.length ; j++){
-			prueba += '<tr><td id="'+ j +'" onclick= "asignarMotociclistas(this.id);"ondblclick="desasignarMoto(this.id);" >' + times[j] + '<span style="margin-left: 10px;" id="'+j+'span" value="8"></span></td></tr>';
-		}
-	    
-	    
-	//alert(prueba);
-    tables.innerHTML += prueba;    
-}
-function crearMotociclistas(){
-	for(let i = 0 ; i < 8 ; i++ )
-		{
-			var Activo= false;
-			var numeracion = i;
-			var aux = new Motociclista(Activo,numeracion);
-			motos.push(aux);	
-			//alert(aux.Activo+aux.numeracion);
-		}
-}
-window.crearMotociclistas();
-var cont=8;
-function asignarMotociclistas(id){
-	var key = id.toString();
-	var elemento = document.getElementById(key);
-	
-	var auxId=key+"span";
-    var spanAux =document.getElementById(auxId);
-	var texto = spanAux.textContent;
-	let aux=0;
-	for(let x=0 ; x < motos.length ; x++){
-		//alert("si hay motociclistas");
-		if(motos[x].Activo===false && texto === "" ){
-		  if(cont != 0){
-				 motos[x].Activo = true ;
-				 spanAux.innerHTML += "MOTOCICLISTA "+motos[x].numeracion;
-				 spanAux.classList.add('spant');
-			  	elemento.setAttribute('style', 'background-color:red');
-   				 elemento.classList.add('imgmoto');
-				 cont --;
-			     alert(cont);
-				break;
-		  }else if(cont == 0){
-				alert("no hay motociclistas");
-		  }
-		}		
-	}
-	
+class Motociclista {
+    constructor(numeracion) {
+        this.numeracion = numeracion;
+        this.activo = false;
+    }
 }
 
-function desasignarMoto(id){
-	var key = id.toString();
-	var elemento = document.getElementById(key);
-	var auxId=key+"span";
-	var spanAux =document.getElementById(auxId);
-	var numeroMoto =spanAux.textContent;
-	//alert(numeroMoto);
-	const myArray = numeroMoto.split(" ");
-	var number = myArray[1];
-	var elemento = document.getElementById(key);
-	spanAux.classList.remove("spant");
-	spanAux.innerHTML = "";
-	elemento.classList.remove("imgmoto");
-	elemento.setAttribute('style', 'background-color:cornflowerblue');
-	//alert(number);
-	motos[parseInt(number)].Activo = false;
-	cont++;
-	//alert(cont);
+const motociclistas = [];
+let disponibles = TOTAL_MOTOCICLISTAS;
+
+document.addEventListener('DOMContentLoaded', () => {
+    crearMotociclistas();
+    crearHorario();
+});
+
+/** Crea la lista inicial de motociclistas. */
+function crearMotociclistas() {
+    for (let i = 0; i < TOTAL_MOTOCICLISTAS; i++) {
+        motociclistas.push(new Motociclista(i + 1));
+    }
 }
 
+/** Genera las franjas horarias de media hora a partir de las 8:00 AM. */
+function crearHorario() {
+    const cuerpo = document.getElementById('box');
+    let hora = 8;
+    let filas = '';
+
+    for (let i = 0; i < TOTAL_FRANJAS; i++) {
+        const horaEntera = Math.floor(hora);
+        const minutos = i % 2 === 1 ? '30' : '00';
+        const sufijo = hora < 12 ? 'AM' : 'PM';
+        const hora12 = horaEntera > 12 ? horaEntera - 12 : horaEntera;
+        const etiqueta = hora12 + ':' + minutos + ' ' + sufijo;
+
+        filas += '<tr><td id="franja-' + i + '">' +
+                 '<span>' + etiqueta + '</span>' +
+                 '<span class="spant" id="franja-' + i + '-span"></span>' +
+                 '</td></tr>';
+
+        hora += 0.5;
+    }
+
+    cuerpo.innerHTML = filas;
+
+    // Eventos de asignación (clic) y liberación (doble clic)
+    cuerpo.querySelectorAll('td').forEach((celda) => {
+        celda.addEventListener('click', () => asignarMotociclista(celda));
+        celda.addEventListener('dblclick', () => liberarFranja(celda));
+    });
+}
+
+/** Asigna el primer motociclista libre a la franja seleccionada. */
+function asignarMotociclista(celda) {
+    const etiqueta = celda.querySelector('.spant');
+
+    if (etiqueta.textContent !== '') return; // franja ya ocupada
+
+    const libre = motociclistas.find((moto) => !moto.activo);
+
+    if (!libre) {
+        etiqueta.textContent = '';
+        alert('No hay motociclistas disponibles.');
+        return;
+    }
+
+    libre.activo = true;
+    disponibles--;
+
+    etiqueta.textContent = 'MOTOCICLISTA ' + libre.numeracion;
+    celda.classList.add('ocupado', 'imgmoto');
+    actualizarContador();
+}
+
+/** Libera la franja y devuelve el motociclista a la lista de disponibles. */
+function liberarFranja(celda) {
+    const etiqueta = celda.querySelector('.spant');
+    const texto = etiqueta.textContent;
+
+    if (texto === '') return; // franja ya libre
+
+    const numero = parseInt(texto.split(' ')[1], 10);
+    const moto = motociclistas.find((m) => m.numeracion === numero);
+
+    if (moto) {
+        moto.activo = false;
+        disponibles++;
+    }
+
+    etiqueta.textContent = '';
+    celda.classList.remove('ocupado', 'imgmoto');
+    actualizarContador();
+}
+
+/** Refresca el contador visible de motociclistas disponibles. */
+function actualizarContador() {
+    document.getElementById('contadorDisponibles').textContent = disponibles;
+}

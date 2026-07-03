@@ -1,25 +1,42 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-<meta charset="utf-8">
-<title>Documento sin título</title>
-<script src="index.js"></script>
-<link rel="stylesheet" href="index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horario de Motociclistas | Portafolio de Ramiro Lamilla</title>
+    <meta name="description" content="Generador dinámico de horarios para motociclistas construido con JavaScript y manipulación del DOM.">
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
-<div class="parent">
-	<table  width="50%"border="4" cellspacing="2">
-	<thead id = "box">
-		 <tr>
-      		<th scope="col" onclick="CrearHorario()" align="center">Motorcyclists Schedule</th>
-    	</tr>
-	</thead>
- 
-   </table>
-</div>
-	
+    <header class="cabecera">
+        <a href="../index.html" class="cabecera__volver">← Volver al portafolio</a>
+        <h1 class="cabecera__titulo">Horario de <span class="acento">Motociclistas</span></h1>
+    </header>
+
+    <main class="contenedor">
+        <section class="panel-info" aria-label="Instrucciones">
+            <p>
+                Haz <strong>clic</strong> en una franja horaria para asignar un motociclista
+                y <strong>doble clic</strong> para liberarla.
+            </p>
+            <p class="panel-info__disponibles">
+                Disponibles: <span id="contadorDisponibles" class="acento">8</span> motociclistas
+            </p>
+        </section>
+
+        <section class="horario" aria-label="Tabla de horarios">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Franja horaria</th>
+                    </tr>
+                </thead>
+                <tbody id="box"></tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="index.js"></script>
 </body>
 </html>
-
-

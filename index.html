@@ -1,34 +1,138 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-<meta charset="utf-8">
-<title>My web page</title>
-<link rel="stylesheet" href="indexPrincipal.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramiro Augusto Lamilla Díaz | Ingeniero de Sistemas</title>
+    <meta name="description" content="Portafolio de Ramiro Augusto Lamilla Díaz, Ingeniero de Sistemas y desarrollador web. Proyectos de mapas interactivos, aplicaciones y juegos.">
+    <link rel="stylesheet" href="indexPrincipal.css">
 </head>
 
 <body>
-	<div class="principal">
-	 <div class="photo"><img class="imgphoto" src="myphoto.jpg" ></div>
-	 <div class="nombre">
-		<h2 class="cascade-text" id="miNombre"><h2>
-        <h3>Ingeniero de sistemas</h3>
-	 </div>
-	 <div class="vacio"></div>
-	 <div class="proyectos">
-	     <button type="button" class="boton"><a href="https://raugusto2903.github.io/portafolio/geographicProject1/index.html">Create Global Position 1</a></button><br>
-	     <button type="button" class="boton"><a href="https://raugusto2903.github.io/portafolio/geographicProject2/index.html">Create Global Position 2</a></button><br>
-         <button type="button" class="boton"><a href="https://raugusto2903.github.io/portafolio/motos/index.html">Motorcycle schudle</a></button><br>
-	     <button type="button" class="boton"><a href="https://raugusto2903.github.io/portafolio/puzzle/index.html">Puzzle</a></button>
-		 <button type="button" class="boton"><a href="https://raugusto2903.github.io/portafolio/pruebaUniversidad/index.html">Prueba</a></button>
-	  </div>
-	  <div class="footerDiv2"></div>
-	  <div class="footerDiv">
-		<h6>El objetivo de esta página es mostrar mis conocimientos sobre programación web y demostrar que es mi pasión y que quiero desempeñarme en esta profesión de la manera más idónea y comprometida a pesar de cualquier obstáculo que se me presente.</h6>
-		<h2>2023</h2>
-	  </div>
-    </div>
+    <header class="navbar">
+        <a href="#inicio" class="navbar__logo">RL<span class="acento">.</span></a>
+        <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="navbar__nav" id="navMenu" aria-label="Navegación principal">
+            <a href="#inicio" class="navbar__link">Inicio</a>
+            <a href="#proyectos" class="navbar__link">Proyectos</a>
+            <a href="#sobre-mi" class="navbar__link">Sobre mí</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ===== HERO ===== -->
+        <section class="hero" id="inicio">
+            <div class="hero__contenido">
+                <p class="hero__saludo">Hola, soy</p>
+                <h1 class="hero__nombre" id="miNombre" aria-label="Ramiro Augusto Lamilla Díaz"></h1>
+                <h2 class="hero__titulo">Ingeniero de Sistemas <span class="acento">&amp;</span> Desarrollador Web</h2>
+                <p class="hero__descripcion">
+                    Apasionado por la programación web. Construyo aplicaciones claras,
+                    funcionales y comprometidas con la calidad.
+                </p>
+                <div class="hero__acciones">
+                    <a href="#proyectos" class="boton boton--primario">Ver proyectos</a>
+                    <a href="#sobre-mi" class="boton boton--secundario">Sobre mí</a>
+                </div>
+            </div>
+            <div class="hero__foto">
+                <div class="hero__foto-marco">
+                    <img src="myphoto.jpg" alt="Fotografía de Ramiro Augusto Lamilla Díaz">
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PROYECTOS ===== -->
+        <section class="proyectos" id="proyectos">
+            <h2 class="seccion__titulo">Proyectos<span class="acento">.</span></h2>
+            <p class="seccion__subtitulo">Una muestra de mi trabajo en desarrollo web</p>
+
+            <div class="proyectos__grid">
+                <article class="tarjeta">
+                    <div class="tarjeta__icono" aria-hidden="true">🗺️</div>
+                    <h3 class="tarjeta__titulo">Posición Global 1</h3>
+                    <p class="tarjeta__descripcion">
+                        Mapa interactivo para crear y consultar puntos geográficos
+                        con coordenadas en tiempo real.
+                    </p>
+                    <ul class="tarjeta__tecnologias">
+                        <li>Leaflet</li><li>JavaScript</li><li>CSS Grid</li>
+                    </ul>
+                    <a href="geographicProject1/index.html" class="tarjeta__enlace">Ver proyecto <span aria-hidden="true">→</span></a>
+                </article>
+
+                <article class="tarjeta">
+                    <div class="tarjeta__icono" aria-hidden="true">📍</div>
+                    <h3 class="tarjeta__titulo">Posición Global 2</h3>
+                    <p class="tarjeta__descripcion">
+                        Segunda versión del mapa interactivo con formulario para
+                        registrar ubicaciones sobre el mapa.
+                    </p>
+                    <ul class="tarjeta__tecnologias">
+                        <li>Leaflet</li><li>JavaScript</li><li>HTML</li>
+                    </ul>
+                    <a href="geographicProject2/index.html" class="tarjeta__enlace">Ver proyecto <span aria-hidden="true">→</span></a>
+                </article>
+
+                <article class="tarjeta">
+                    <div class="tarjeta__icono" aria-hidden="true">🏍️</div>
+                    <h3 class="tarjeta__titulo">Horario de Motociclistas</h3>
+                    <p class="tarjeta__descripcion">
+                        Generador dinámico de horarios para motociclistas,
+                        construido con manipulación del DOM.
+                    </p>
+                    <ul class="tarjeta__tecnologias">
+                        <li>JavaScript</li><li>DOM</li><li>CSS</li>
+                    </ul>
+                    <a href="motos/index.html" class="tarjeta__enlace">Ver proyecto <span aria-hidden="true">→</span></a>
+                </article>
+
+                <article class="tarjeta">
+                    <div class="tarjeta__icono" aria-hidden="true">🃏</div>
+                    <h3 class="tarjeta__titulo">Puzzle de Memoria</h3>
+                    <p class="tarjeta__descripcion">
+                        Juego de memoria con cartas: encuentra las parejas
+                        y pon a prueba tu concentración.
+                    </p>
+                    <ul class="tarjeta__tecnologias">
+                        <li>JavaScript</li><li>Lógica</li><li>CSS</li>
+                    </ul>
+                    <a href="puzzle/index.html" class="tarjeta__enlace">Ver proyecto <span aria-hidden="true">→</span></a>
+                </article>
+
+                <article class="tarjeta">
+                    <div class="tarjeta__icono" aria-hidden="true">🎓</div>
+                    <h3 class="tarjeta__titulo">WebPro Tools</h3>
+                    <p class="tarjeta__descripcion">
+                        Landing page con buenas prácticas de SEO, diseño
+                        responsive y animaciones.
+                    </p>
+                    <ul class="tarjeta__tecnologias">
+                        <li>SEO</li><li>Responsive</li><li>Animaciones</li>
+                    </ul>
+                    <a href="pruebaUniversidad/index.html" class="tarjeta__enlace">Ver proyecto <span aria-hidden="true">→</span></a>
+                </article>
+            </div>
+        </section>
+
+        <!-- ===== SOBRE MÍ ===== -->
+        <section class="sobre-mi" id="sobre-mi">
+            <h2 class="seccion__titulo">Sobre mí<span class="acento">.</span></h2>
+            <p class="sobre-mi__texto">
+                El objetivo de esta página es mostrar mis conocimientos sobre programación web
+                y demostrar que es mi pasión. Quiero desempeñarme en esta profesión de la manera
+                más idónea y comprometida, a pesar de cualquier obstáculo que se me presente.
+            </p>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p class="footer__nombre">Ramiro Augusto Lamilla Díaz</p>
+        <p class="footer__anio">© <span id="anioActual"></span> — Portafolio personal</p>
+    </footer>
+
+    <script src="index.js"></script>
 </body>
 </html>
-
-<script src="index.js"></script>

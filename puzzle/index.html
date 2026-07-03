@@ -1,76 +1,33 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-<meta charset="utf-8">
-<title>Documento sin título</title>
-<script src="index.js"></script>
-<link rel="stylesheet" href="index.css">
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle de Memoria | Portafolio de Ramiro Lamilla</title>
+    <meta name="description" content="Juego de memoria con cartas: encuentra todas las parejas. Construido con JavaScript puro.">
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
-<section> </section>
-<section class="second" id="scondDiv">
-  <table width="100%" height="689" border="2" cellspacing="1">
-    <tbody>
-      <tr>
-        <th scope="col"id="1" onclick="opencard(this.id)">&nbsp;</th>
-        <th scope="col"id="2" onclick="opencard(this.id)">&nbsp;</th>
-        <th scope="col"id="3" onclick="opencard(this.id)">&nbsp;</th>
-        <th scope="col"id="4" onclick="opencard(this.id)">&nbsp;</th>
-        <th scope="col"id="5" onclick="opencard(this.id)">&nbsp;</th>
-        <th scope="col"id="6" onclick="opencard(this.id)">&nbsp;</th>
-        <th scope="col"id="7" onclick="opencard(this.id)">&nbsp;</th>
-        <th scope="col"id="8" onclick="opencard(this.id)">&nbsp;</th>
-        <th scope="col"id="9" onclick="opencard(this.id)">&nbsp;</th>
-      </tr>
-      <tr>
-        <td id="10"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="11"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="12"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="13"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="14"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="15"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="16"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="17"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="18"onclick="opencard(this.id)">&nbsp;</td>
-      </tr>
-      <tr>
-        <td id="19"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="20"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="21"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="22"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="23"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="24"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="25"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="26"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="27"onclick="opencard(this.id)">&nbsp;</td>
-      </tr>
-      <tr>
-        <td id="28"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="29"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="30"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="31"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="32"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="33"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="34"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="35"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="36"onclick="opencard(this.id)">&nbsp;</td>
-      </tr>
-      <tr>
-        <td id="37"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="38"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="39"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="40"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="41"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="42"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="43"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="44"onclick="opencard(this.id)">&nbsp;</td>
-        <td id="45"onclick="opencard(this.id)">&nbsp;</td>
-      </tr>
-    </tbody>
-  </table>
-</section>
+    <header class="cabecera">
+        <a href="../index.html" class="cabecera__volver">← Volver al portafolio</a>
+        <h1 class="cabecera__titulo">Puzzle de <span class="acento">Memoria</span></h1>
+    </header>
+
+    <main class="contenedor">
+        <section class="panel-info" aria-label="Estado del juego">
+            <p>Encuentra todas las parejas de cartas iguales.</p>
+            <div class="panel-info__datos">
+                <span>Parejas: <strong id="parejas" class="acento">0</strong> / <span id="totalParejas">12</span></span>
+                <span>Intentos: <strong id="intentos" class="acento">0</strong></span>
+                <button type="button" id="reiniciar" class="boton-primario">Reiniciar</button>
+            </div>
+            <p id="mensaje" class="panel-info__mensaje" role="status"></p>
+        </section>
+
+        <section class="tablero" id="tablero" aria-label="Tablero de cartas"></section>
+    </main>
+
+    <script src="index.js"></script>
 </body>
 </html>

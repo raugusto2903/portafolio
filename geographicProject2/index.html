@@ -1,142 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>My first UNIGIS Leaflet map</title>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posición Global 2 | Portafolio de Ramiro Lamilla</title>
+    <meta name="description" content="Mapa interactivo Leaflet que genera puntos aleatorios y los clasifica por cuadrante geográfico.">
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="estilos.css">
+</head>
 
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    />
-    <script
-      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    ></script>
-	  <script src="index.js"></script>
-    <link rel="stylesheet" href="estilos.css" />
-  </head>
-  <body>
-<div class="contenedor">
-<div class="formulario">
-<form name="form1" method="post" class="forMap">
-	</form>
-  <p>
-    <label>&nbsp;&nbsp;</label>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <strong>NUMBER OF POINTS</strong>    </p>
-  <p>
-    <input type="number" name="textfield" id="number">
-    <input type="button" name="button" id="button" value="Enviar" onClick="generateCordinates();">
-    <br>
-    <br>
-    </p>
-  <table width="341" height="40" border="1" >
-    <tbody id="tablecordinates">
-      <tr>
-        <td height="34">length</td>
-        <td>latitude</td>
-      </tr>
-    </tbody>
-  </table>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <table width="355" border="2" >
-    <tbody id="tableSort">
-      <tr>
-        <td>length</td>
-        <td>latitude</td>
-        <td>quadrant</td>
-      </tr>
-    </tbody>
-  </table>
-	<div class="contenedor-texto">
-  <p>
-    <label for="textfield">NorthWest :</label>
-    <input type="text" name="textfield5" id="textfield">
-  </p>
-	<p>&nbsp; </p>
-  <p>
-    <label for="textfield2">NorthEast</label>
-    :
-    <input type="text" name="textfield2" id="textfield2">
-  </p>
-  <p>&nbsp;</p>
-  <p>
-    <label for="textfield3">SouthWest:</label>
-    <input type="text" name="textfield3" id="textfield3">
-  </p>
-  <p>&nbsp;</p>
-  <p>
-    <label for="textfield4">SouthEast:</label>
-     <input type="text" name="textfield4" id="textfield4">
-  </p>
-</div>
-</div>
-      <div class="mapa">
-        <div id="myMap" style="width: 100%, height: 400px"></div>
+<body>
+    <header class="cabecera">
+        <a href="../index.html" class="cabecera__volver">← Volver al portafolio</a>
+        <h1 class="cabecera__titulo">Posición Global <span class="acento">2</span></h1>
+    </header>
 
-        <div id="mapid" style="width: 100%; height: 100%"></div>
-        <script>
-          //var latlng = [47.811195, 13.033229];
-			//alert("prueba xxxx");
-          var latlng = [4.64105, -74.06273];
-          var mymap = L.map("mapid").setView(latlng, 9);
-		  mymap.on('click', onMapClick);
-          var popup = L.popup()
-          .setLatLng(latlng)
-          .setContent("<p>Hello world!</p>")
-          .openOn(mymap)
-           .openPopup();
+    <main class="contenedor">
+        <!-- Panel de control -->
+        <section class="panel" aria-label="Generador de puntos">
+            <h2 class="panel__titulo">Generador de puntos</h2>
+            <p class="panel__ayuda">
+                Genera puntos aleatorios alrededor del punto medio, o haz clic
+                sobre el mapa para agregar uno manualmente.
+            </p>
 
-          L.circle(latlng, { radius: 100000 }).addTo(mymap);
-          var markrPrueba = L.marker(latlng)
-            .addTo(mymap)
-            .bindPopup(popup)
-            .openPopup();
-          markrPrueba.bindTooltip("midpoint").openTooltip();
-          //var latlngs = [[4.64105, -74.06273],[4, -70],[3,-74.06273]];
-          //var polygon = L.polygon(latlngs, {color: 'black'}).addTo(mymap);
-          var latlngsV = [
-            [4.64105, -74.06273],
-            [3.64105, -74.06273],
-            [5.64105, -74.06273],
-          ];
+            <div class="panel__formulario">
+                <div class="panel__grupo">
+                    <label for="number">Número de puntos</label>
+                    <input type="number" id="number" min="1" class="campo" placeholder="Ej: 10">
+                </div>
+                <button type="button" id="button" class="boton-primario">Generar</button>
+            </div>
 
-          var latlngsH = [
-            [4.64105, -74.06273],
-            [4.64105, -75.06273],
-            [4.64105, -73.06273],
-          ];
+            <h3 class="panel__subtitulo">Coordenadas</h3>
+            <div class="panel__tabla">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Latitud</th>
+                            <th scope="col">Longitud</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablecordinates"></tbody>
+                </table>
+            </div>
 
-          var polylineV = L.polyline(latlngsV, { color: "black" }).addTo(mymap);
-          var polylineH = L.polyline(latlngsH, { color: "black" }).addTo(mymap);
+            <h3 class="panel__subtitulo">Clasificación por cuadrante</h3>
+            <div class="panel__tabla">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Latitud</th>
+                            <th scope="col">Longitud</th>
+                            <th scope="col">Cuadrante</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableSort"></tbody>
+                </table>
+            </div>
 
-          L.tileLayer(
-            'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-            {
-              maxZoom: 18,
-              attribution:
-                'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-              id: "mapbox/streets-v11",
-              tileSize: 512,
-              zoomOffset: -1,
-            }
-          ).addTo(mymap);
-    //       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    // maxZoom: 19,
-    // attribution: 
-    //     }).addTo(mymap);
-          //myMap.bindPopup(popupContent).openPopup();
-          //mymap.panBy(L.point(0, 0));
-        </script>
-      </div>
-    </div>
-  </body>
+            <div class="panel__contadores">
+                <div class="contador">
+                    <label for="textfield">Noroeste</label>
+                    <input type="text" id="textfield" class="campo" readonly value="0">
+                </div>
+                <div class="contador">
+                    <label for="textfield2">Noreste</label>
+                    <input type="text" id="textfield2" class="campo" readonly value="0">
+                </div>
+                <div class="contador">
+                    <label for="textfield3">Suroeste</label>
+                    <input type="text" id="textfield3" class="campo" readonly value="0">
+                </div>
+                <div class="contador">
+                    <label for="textfield4">Sureste</label>
+                    <input type="text" id="textfield4" class="campo" readonly value="0">
+                </div>
+            </div>
+        </section>
+
+        <!-- Mapa -->
+        <section class="mapa" aria-label="Mapa interactivo">
+            <div id="mapid"></div>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="index.js"></script>
+</body>
 </html>

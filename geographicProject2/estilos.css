@@ -1,59 +1,230 @@
-* {
-  margin: auto;
-  padding: 0;
-  border: 0;
-  border-width: 0;
-  line-height: 1.1;
-  list-style: none;
-  text-decoration: none;
-  outline-style: none;
-  font-family: "Muli", sans-serif;
+/* ============================================
+   Posición Global 2 — Tema oscuro del portafolio
+   ============================================ */
+:root {
+    --color-fondo: #0f172a;
+    --color-fondo-alt: #1e293b;
+    --color-borde: #334155;
+    --color-texto: #e2e8f0;
+    --color-texto-suave: #94a3b8;
+    --color-acento: #38bdf8;
+    --color-acento-hover: #7dd3fc;
+    --fuente: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --radio: 14px;
 }
-body {
-  padding: 0px;
-  background: rgb(209, 209, 209, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.contenedor {
-  height: 90vh;
-  width: 90%;
-  justify-content: space-around;
-  display: flex;
-  align-items: center;
-  margin-top: 2%;
-  border: 3px solid black;
-  border-radius: 5px;
-}
-.formulario {
-  height: 98%;
-  width: 32%;
-  background: rgb(109, 109, 106);
-  border: 2px solid black;
-  border-radius: 5px;
-  overflow:hidden;
-  overflow-y: scroll;
-}
-.contenedor-texto{
-	justify-content: center;
-	align-items: center;
-	margin-top: 20px;
-}
-.mapa {
-  height: 98%;
-  width: 65%;
-  background: rgb(58, 56, 55);
-  border: 2px solid black;
-  border-radius: 5px;
-}
-.forMap {
-}
-table, th, td {
-  border: 1px solid black;
-  text-align: center; 
-  vertical-align: middle;
-  margin: auto;
-}
-p{display:flex;}
 
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-family: var(--fuente);
+    line-height: 1.5;
+    min-height: 100vh;
+}
+
+.acento {
+    color: var(--color-acento);
+}
+
+/* ---------- Cabecera ---------- */
+.cabecera {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--color-borde);
+}
+
+.cabecera__volver {
+    color: var(--color-acento);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.cabecera__volver:hover {
+    color: var(--color-acento-hover);
+    text-decoration: underline;
+}
+
+.cabecera__titulo {
+    font-size: 1.5rem;
+    margin-top: 0.3rem;
+}
+
+/* ---------- Layout principal ---------- */
+.contenedor {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    padding: 1.2rem;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* ---------- Panel ---------- */
+.panel {
+    background-color: var(--color-fondo-alt);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: 1.4rem;
+}
+
+.panel__titulo {
+    font-size: 1.15rem;
+}
+
+.panel__ayuda {
+    color: var(--color-texto-suave);
+    font-size: 0.88rem;
+    margin: 0.5rem 0 1rem;
+}
+
+.panel__subtitulo {
+    font-size: 0.95rem;
+    margin: 1.2rem 0 0.5rem;
+    color: var(--color-acento);
+}
+
+.panel__formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.panel__grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.panel__grupo label {
+    font-size: 0.85rem;
+    color: var(--color-texto-suave);
+    font-weight: 600;
+}
+
+.campo {
+    background-color: var(--color-fondo);
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    color: var(--color-texto);
+    padding: 0.6rem 0.8rem;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.campo:focus {
+    outline: 2px solid var(--color-acento);
+    border-color: transparent;
+}
+
+.boton-primario {
+    background-color: var(--color-acento);
+    color: #082f49;
+    border: none;
+    border-radius: 999px;
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.boton-primario:hover {
+    background-color: var(--color-acento-hover);
+    transform: translateY(-2px);
+}
+
+/* ---------- Tablas ---------- */
+.panel__tabla {
+    max-height: 220px;
+    overflow-y: auto;
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+th, td {
+    padding: 0.5rem 0.6rem;
+    text-align: center;
+    border-bottom: 1px solid var(--color-borde);
+}
+
+thead th {
+    background-color: var(--color-fondo);
+    color: var(--color-acento);
+    position: sticky;
+    top: 0;
+}
+
+tbody tr:hover {
+    background-color: rgba(56, 189, 248, 0.08);
+}
+
+/* ---------- Contadores por cuadrante ---------- */
+.panel__contadores {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+    margin-top: 1.2rem;
+}
+
+.contador {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.contador label {
+    font-size: 0.8rem;
+    color: var(--color-texto-suave);
+    font-weight: 600;
+}
+
+.contador .campo {
+    text-align: center;
+    font-weight: 700;
+    color: var(--color-acento);
+}
+
+/* ---------- Mapa ---------- */
+.mapa {
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    overflow: hidden;
+    min-height: 400px;
+}
+
+#mapid {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+}
+
+/* ---------- Tablet / Escritorio ---------- */
+@media (min-width: 900px) {
+    .contenedor {
+        grid-template-columns: 400px 1fr;
+        align-items: start;
+    }
+
+    .mapa {
+        position: sticky;
+        top: 1.2rem;
+        height: calc(100vh - 120px);
+    }
+
+    #mapid {
+        height: 100%;
+    }
+}

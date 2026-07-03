@@ -1,102 +1,160 @@
-@charset "utf-8";
-/* CSS Document */
- td { background-color: cornflowerblue; 
-    cursor: pointer;}
- th { background-color: cornflowerblue;
-	cursor: pointer;}
-.card1{
-	background : url("images/card1.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-	background-position: center;
-}
-.card2{
-	background : url("images/card2.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-	background-position: center;
-}
-.card3{
-	background : url("images/card3.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-	background-position: center;
-}
-.card4{
-	background : url("images/card4.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-	background-position: center;
-}
-.card5{
-	background : url("images/card5.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-	background-position: center;
-}
-.card2{
-	background : url("images/card2.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-	background-position: center;
-}
-.card1{
-	background : url("images/card1.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-	background-position: center;
-}
-.card6{
-	background : url("images/card6.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-	background-position: center;
-}
-.card7{
-	background : url("images/card7.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-	background-position: center;
-}
-.card8{
-	background : url("images/card8.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-	background-position: center;
-}
-.card9{
-	background : url("images/card9.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-	background-position: center;
-}
-.card10{
-	background : url("images/card10.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-	background-position: center;
-}
-.card11{
-	background : url("images/card11.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-	background-position: center;
-}
-.card12{
-	background : url("images/card12.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-	background-position: center;
-}
-.card13{
-	background : url("images/card13.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-	background-position: center;
-}
-#divFirst {
-}
-#scondDiv {
+/* ============================================
+   Puzzle de Memoria — Tema oscuro del portafolio
+   ============================================ */
+:root {
+    --color-fondo: #0f172a;
+    --color-fondo-alt: #1e293b;
+    --color-borde: #334155;
+    --color-texto: #e2e8f0;
+    --color-texto-suave: #94a3b8;
+    --color-acento: #38bdf8;
+    --color-acento-hover: #7dd3fc;
+    --color-exito: #4ade80;
+    --fuente: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --radio: 14px;
 }
 
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-family: var(--fuente);
+    line-height: 1.5;
+    min-height: 100vh;
+}
+
+.acento {
+    color: var(--color-acento);
+}
+
+/* ---------- Cabecera ---------- */
+.cabecera {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--color-borde);
+}
+
+.cabecera__volver {
+    color: var(--color-acento);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.cabecera__volver:hover {
+    color: var(--color-acento-hover);
+    text-decoration: underline;
+}
+
+.cabecera__titulo {
+    font-size: 1.5rem;
+    margin-top: 0.3rem;
+}
+
+/* ---------- Layout ---------- */
+.contenedor {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+/* ---------- Panel de estado ---------- */
+.panel-info {
+    background-color: var(--color-fondo-alt);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: 1.2rem 1.4rem;
+    color: var(--color-texto-suave);
+}
+
+.panel-info__datos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 0.6rem;
+}
+
+.panel-info__mensaje {
+    margin-top: 0.6rem;
+    font-weight: 700;
+    color: var(--color-exito);
+    min-height: 1.5em;
+}
+
+.boton-primario {
+    background-color: var(--color-acento);
+    color: #082f49;
+    border: none;
+    border-radius: 999px;
+    padding: 0.5rem 1.3rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.boton-primario:hover {
+    background-color: var(--color-acento-hover);
+    transform: translateY(-2px);
+}
+
+/* ---------- Tablero ---------- */
+.tablero {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.7rem;
+}
+
+.carta {
+    aspect-ratio: 3 / 4;
+    background-color: var(--color-fondo-alt);
+    border: 2px solid var(--color-borde);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.25s ease, border-color 0.25s ease,
+                background-color 0.25s ease;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.carta:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-acento);
+}
+
+/* Reverso: patrón sutil mientras está boca abajo */
+.carta:not(.carta--abierta):not(.carta--encontrada) {
+    background-image: radial-gradient(circle,
+        rgba(56, 189, 248, 0.18) 1.5px, transparent 1.5px);
+    background-size: 14px 14px;
+}
+
+.carta--abierta {
+    background-color: #f8fafc;
+    border-color: var(--color-acento);
+}
+
+.carta--encontrada {
+    background-color: #f8fafc;
+    border-color: var(--color-exito);
+    cursor: default;
+    box-shadow: 0 0 14px rgba(74, 222, 128, 0.35);
+}
+
+/* ---------- Tablet / Escritorio ---------- */
+@media (min-width: 640px) {
+    .tablero {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}

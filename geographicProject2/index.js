@@ -1,128 +1,126 @@
-// JavaScript Document
+/* ============================================
+   Posición Global 2
+   Genera puntos aleatorios alrededor de un punto
+   medio, los dibuja en el mapa y los clasifica
+   por cuadrante (NO, NE, SO, SE).
+   ============================================ */
 
+const PUNTO_MEDIO = [4.64105, -74.06273]; // Bogotá
 
-var listCordinates= new Array();
-var band ;
+let mapa;
+let capaMarcadores;
+let listaCoordenadas = [];
 
-function generateCordinates(){
-	
-   var number= document.getElementById('number').value;
-	var html="";
-	var puntox=4.64105;
-	var puntoy=-74.06273;
-	parseFloat(puntox);
-	parseFloat(puntoy);
-	var listCordinates = new Array();
-	var x;
-	var y;
-	var cordinate =[];
-	var markrCordinates;
-	var band = 0;
-	for(let i = 0 ; i < number ; i++ ){
-		var cordinate =[];
-		band=(Math.random() * (3 - 0) + 0).toFixed(0);
-		x=(Math.random() * (0.8 - 0.0200) + 0.0200);
-		
-		y=(Math.random() * (0.8 - 0.0200) + 0.0200);
-		if(band == 1){x= x * (-1); y= y * (-1);}
-		if(band == 2){x= x * (-1);}
-		if(band == 3){y= y * (-1);}
-		puntox += x;
-		puntoy += y;
-		html +="<tr><td>"+puntox+"</td><td>"+puntoy+"</td></tr>"
-		cordinate =[puntox,puntoy];
-		listCordinates.push(cordinate);
-		markrCordinates = L.marker(cordinate)
-            .addTo(mymap)
-            .bindPopup()
-            .openPopup();
-		puntox=4.64105;
-	    puntoy=-74.06273;
-	}
-	var tbody = document.getElementById('tablecordinates');
-	tbody.innerHTML +=html;	
-	band = 1 ;
-	//alert(band);
-	sortCardinates(listCordinates);
-	
+document.addEventListener('DOMContentLoaded', () => {
+    iniciarMapa();
+    document.getElementById('button').addEventListener('click', generarCoordenadas);
+});
+
+/** Crea el mapa base con el punto medio marcado. */
+function iniciarMapa() {
+    mapa = L.map('mapid').setView(PUNTO_MEDIO, 9);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap',
+    }).addTo(mapa);
+
+    // Punto medio de referencia con círculo y ejes
+    L.circle(PUNTO_MEDIO, { radius: 100000, color: '#38bdf8' }).addTo(mapa);
+    L.marker(PUNTO_MEDIO).addTo(mapa).bindTooltip('Punto medio').openTooltip();
+
+    const [lat, lng] = PUNTO_MEDIO;
+    L.polyline([[lat - 1, lng], [lat + 1, lng]], { color: '#e2e8f0' }).addTo(mapa); // eje vertical
+    L.polyline([[lat, lng - 1], [lat, lng + 1]], { color: '#e2e8f0' }).addTo(mapa); // eje horizontal
+
+    capaMarcadores = L.layerGroup().addTo(mapa);
+
+    // Clic en el mapa: agrega un punto manual
+    mapa.on('click', alHacerClicEnMapa);
 }
 
-function sortCardinates(listCordinates){
-	//alert(band);
-	//$("#tableSort").remove();
-	if(band === 0){
-	delete_table();}
-	var countNorthWest=0;
-	var countNorthEast=0;
-	var countSouthWest=0;
-	var countSouthEast=0;
-	var puntox=4.64105;
-	var puntoy=-74.06273;
-	
-	var tbody2 = document.getElementById('tableSort');
-	var html2 ="";
-	for(let i = 0 ; i < listCordinates.length; i++ ){
-		
-		if(listCordinates[i][0]>puntox && listCordinates[i][1]>puntoy)
-			{
-				countNorthEast++;
-				html2 +="<tr><td>"+listCordinates[i][0]+"</td><td>"+listCordinates[i][1]+"</td><td>NorthWest</td></tr>"
-			}
-		if(listCordinates[i][0]>puntox && listCordinates[i][1]<puntoy)
-			{
-				countNorthWest++;
-				html2 +="<tr><td>"+listCordinates[i][0]+"</td><td>"+listCordinates[i][1]+"</td><td>NorthEast</td></tr>"
-			}
-		if(listCordinates[i][0]<puntox && listCordinates[i][1]<puntoy)
-			{
-				countSouthWest++;
-				html2 +="<tr><td>"+listCordinates[i][0]+"</td><td>"+listCordinates[i][1]+"</td><td>SouthWest</td></tr>"
-			}
-		if(listCordinates[i][0]<puntox && listCordinates[i][1]>puntoy)
-			{
-				countSouthEast++;
-				html2 +="<tr><td>"+listCordinates[i][0]+"</td><td>"+listCordinates[i][1]+"</td><td>SouthEast</td></tr>"
-			}
-		
-	}
-	tbody2.innerHTML +=html2;
-	document.getElementById('textfield').value = countNorthWest;
-	document.getElementById('textfield2').value = countNorthEast;
-	document.getElementById('textfield3').value = countSouthWest;
-	document.getElementById('textfield4').value = countSouthEast;
+/** Genera N puntos aleatorios alrededor del punto medio. */
+function generarCoordenadas() {
+    const cantidad = parseInt(document.getElementById('number').value, 10);
 
+    if (!cantidad || cantidad < 1) {
+        alert('Ingresa un número de puntos válido.');
+        return;
+    }
+
+    listaCoordenadas = [];
+    capaMarcadores.clearLayers();
+    document.getElementById('tablecordinates').innerHTML = '';
+
+    let filas = '';
+
+    for (let i = 0; i < cantidad; i++) {
+        // Desplazamiento aleatorio entre 0.02 y 0.8 grados, con signo aleatorio
+        const desplazamientoLat = numeroAleatorio(0.02, 0.8) * signoAleatorio();
+        const desplazamientoLng = numeroAleatorio(0.02, 0.8) * signoAleatorio();
+
+        const lat = PUNTO_MEDIO[0] + desplazamientoLat;
+        const lng = PUNTO_MEDIO[1] + desplazamientoLng;
+
+        filas += '<tr><td>' + lat.toFixed(5) + '</td><td>' + lng.toFixed(5) + '</td></tr>';
+        listaCoordenadas.push([lat, lng]);
+        L.marker([lat, lng]).addTo(capaMarcadores);
+    }
+
+    document.getElementById('tablecordinates').innerHTML = filas;
+    clasificarPorCuadrante();
 }
 
-function onMapClick(e) {
-    //alert("You clicked the map at " + e.latlng);
-	var cordinateMouse =L.marker(e.latlng);
-	cordinateMouse.addTo(mymap);
-	var cordinate2=e.latlng.toString();
-    alert(cordinate2);
-	var array = cordinate2.split(',');
-var b = array[0];
-	b = b.replace(/[^\d.-]/g, '');
-	b = parseFloat(b);
-var c = array[1];
-	c = c.replace(/[^\d.-]/g, '');
-	c = parseFloat(c);
-	var tbody3 = document.getElementById('tablecordinates');
-	var html3="";
-	html3 +="<tr><td>"+b+"</td><td>"+c+"</td></tr>";
-	tbody3.innerHTML +=html3;
-	var cordinate3=[];
-	cordinate3=[b,c];
-	listCordinates.push(cordinate3);
-	//alert("zzzzz");
-	band=0;
-	sortCardinates(listCordinates);
-	//alert("continuar")
-	
+/** Agrega un punto donde el usuario hace clic. */
+function alHacerClicEnMapa(evento) {
+    const lat = evento.latlng.lat;
+    const lng = evento.latlng.lng;
+
+    L.marker([lat, lng]).addTo(capaMarcadores);
+
+    const fila = '<tr><td>' + lat.toFixed(5) + '</td><td>' + lng.toFixed(5) + '</td></tr>';
+    document.getElementById('tablecordinates').innerHTML += fila;
+
+    listaCoordenadas.push([lat, lng]);
+    clasificarPorCuadrante();
 }
-function delete_table(){
-   var table = document.getElementById("tableSort");
-   var rowCount = table.rows.length;
-   while(table.rows.length > 1) {
-  table.deleteRow(1);
+
+/** Clasifica cada punto según su cuadrante respecto al punto medio. */
+function clasificarPorCuadrante() {
+    const [latMedio, lngMedio] = PUNTO_MEDIO;
+    const contadores = { NO: 0, NE: 0, SO: 0, SE: 0 };
+    let filas = '';
+
+    listaCoordenadas.forEach(([lat, lng]) => {
+        let cuadrante;
+
+        if (lat > latMedio) {
+            cuadrante = lng > lngMedio ? 'Noreste' : 'Noroeste';
+        } else {
+            cuadrante = lng > lngMedio ? 'Sureste' : 'Suroeste';
+        }
+
+        if (cuadrante === 'Noroeste') contadores.NO++;
+        if (cuadrante === 'Noreste') contadores.NE++;
+        if (cuadrante === 'Suroeste') contadores.SO++;
+        if (cuadrante === 'Sureste') contadores.SE++;
+
+        filas += '<tr><td>' + lat.toFixed(5) + '</td><td>' + lng.toFixed(5) +
+                 '</td><td>' + cuadrante + '</td></tr>';
+    });
+
+    document.getElementById('tableSort').innerHTML = filas;
+    document.getElementById('textfield').value = contadores.NO;
+    document.getElementById('textfield2').value = contadores.NE;
+    document.getElementById('textfield3').value = contadores.SO;
+    document.getElementById('textfield4').value = contadores.SE;
 }
+
+/* ---------- Utilidades ---------- */
+function numeroAleatorio(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+function signoAleatorio() {
+    return Math.random() < 0.5 ? -1 : 1;
 }
